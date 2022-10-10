@@ -1,26 +1,18 @@
 import React,{useState}from 'react'
 import  Container  from 'react-bootstrap/Container'
-// import Form from 'react-bootstrap/Form'
 import './App.css';
-// import App from './App';
-// import Navbar from 'react-bootstrap/Navbar'
-// import Nav from 'react-bootstrap/Nav';
-// import Button from 'react-bootstrap/Button';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 import Badge from 'react-bootstrap/Badge';
 import {HotelData} from './data.js';
-// import Form from 'react-bootstrap/Form';
-import Select from 'react-select'
+
 
 
 const Login = () =>{
   var Result = HotelData;
-  var Origin = HotelData;
   const [selected, setSelected] = useState();
   const handleChange = event => {
-    console.log(event.target.value);
     setSelected(event.target.value);
   };
   function dynamicSort(property) {
@@ -41,14 +33,11 @@ if(selected === "score"){
   Result = HotelData.sort(dynamicSort("HotelRewardScore"));
 }else if(selected === "price"){
   Result = HotelData.sort(dynamicSort("HotelPrice"));
-}else if(selected === "default"){
-  console.log(Result)
-  //Result = Origin;
 }
 
     return (
-  <div className='p1'>
-  <select value={selected} onChange={handleChange} className='DropDown' title='為您精選'>
+  <div className='grouplist'>
+  <select value={selected} onChange={handleChange} className='select' title='為您精選'>
     <option key='default' value='default'hidden>為您推薦</option>
     <option key='price' value='price'>價錢低到高</option>
     <option key='score' value='score'>評分低到高</option>
@@ -56,21 +45,21 @@ if(selected === "score"){
   <h3>找到{HotelData.length}間住宿</h3>
     {Result.map((data, index) => {
         return (
-     <Container className='border Container'>
-      <img src={data.HotelImg} alt='' className='p3'/>
-        <div className='p4'>
+     <Container className='border container'>
+      <img src={data.HotelImg} alt='' className='imgcss'/>
+        <div className='textcss'>
           <br></br>
-          <span className='p7'>{data.HotelReward}
+          <span className='rewardcss'>{data.HotelReward}
           <Badge bg="danger">{data.HotelRewardScore}</Badge>
           </span>
           <h5>{data.HotelName}</h5>
           <IconContext.Provider value={{ color: "red"}}>
-            <p className='p5'>
+            <p className='locationcss'>
             <FaMapMarkerAlt />
             {data.HotelLocation}</p>
           </IconContext.Provider>
-          <span className='p6'>{data.HotelNote}</span>
-          <h5 className='p8'>NT:${data.HotelPrice}起</h5>
+          <span className='notecss'>{data.HotelNote}</span>
+          <h5 className='pricecss'>NT:${data.HotelPrice}起</h5>
         </div>
       </Container>  
       );
